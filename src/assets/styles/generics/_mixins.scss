@@ -1,0 +1,17 @@
+@use "variables" as variables;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin reset-flex {
+  display: block;
+  justify-content: unset;
+  align-items: unset;
+}
+
+@mixin mobile-screen() {
+  @media (max-width: variables.$breakpoint-sm) {@content}
+}

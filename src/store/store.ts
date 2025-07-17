@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import StarterSlice from "./slices/starterSlice.ts";
+import ChatsSlice from "./slices/chatsSlice.ts";
 
 export const store = configureStore({
   reducer: {
     starter: StarterSlice,
+    chats: ChatsSlice,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = typeof store;

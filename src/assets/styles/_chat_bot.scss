@@ -1,0 +1,41 @@
+@use './generics/_variables' as variables;
+@use './generics/mixins' as *;
+
+.bot {
+  width: variables.$bot-width;
+  height: auto;//variables.$bot-height + variables.$bot-input-margin-top;
+
+  position: relative;
+  z-index: 20;
+  margin: auto;
+  background-color: variables.$primary-color;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  top: 100px;
+  padding: 5px;
+
+  .chatbot-header {
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-action {
+      cursor: pointer;
+
+      &:hover {
+        color: variables.$secondary-color;
+      }
+    }
+  }
+
+  @include mobile-screen {
+    min-width: 100vw;
+    min-height: 100vh;
+    border: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: unset;
+    top: unset;
+  }
+}

@@ -1,0 +1,25 @@
+@use "../styles/generics/variables" as *;
+
+.chat-list {
+  height: $bot_chats-height;
+  overflow: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+
+  .message-bubble {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    position: relative;
+
+    &.user-prompt {
+      background-color: navajowhite;
+    }
+
+    &.ai-prompt {
+      background-color: $primary-color;
+      color: whitesmoke;
+    }
+  }
+}

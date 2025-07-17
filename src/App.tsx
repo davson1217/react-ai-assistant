@@ -1,28 +1,11 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import ChatBot from "./ui/ChatBot.tsx";
 import "./App.css";
-import { useAppSelector } from "./store/hooks.ts";
-import { useState } from "react";
-
+// import ChatInput from "./ui/ChatInput.tsx";
 function App() {
-  const title = useAppSelector((state) => state.starter.title);
-  const [number, setNumber] = useState(0);
-
   return (
-    <>
-      Hello world | {title} | {number}
-      <div>
-        <button
-          onClick={() => {
-            setNumber((n) => n + 2);
-            setNumber(number + 2);
-          }}
-        >
-          update
-        </button>
-      </div>
-    </>
+    <div className="backdropped-container">
+      <ChatBot />
+    </div>
   );
 }
 
