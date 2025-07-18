@@ -8,18 +8,54 @@
   padding: 10px;
 
   .message-bubble {
-    padding: 5px;
-    margin-bottom: 10px;
+    padding: 10px;
     border-radius: 8px;
     position: relative;
 
     &.user-prompt {
       background-color: navajowhite;
+
+      .prompt-container {
+        margin-top: 5px;
+      }
     }
 
     &.ai-prompt {
       background-color: $primary-color;
       color: whitesmoke;
+    }
+
+    &.placeholder_bubble {
+      color: turquoise;
+      font-style: italic;
+    }
+  }
+
+  .ai-prompt-avatar {
+    display: flex;
+
+    .apa_info {
+      font-size: 12px;
+      position: relative;
+      top: 10px;
+
+      .apa_info_name {
+        font-weight: bold;
+      }
+
+      .apa_info_timestamp {
+        color: purple;
+      }
+    }
+
+    &.is_bot {
+      justify-content: right;
+
+      .apa_info {
+        .apa_info_name {
+          text-align: right;
+        }
+      }
     }
   }
 

@@ -1,12 +1,10 @@
 import "../assets/styles/_chat_bot.scss";
 import { useEffect } from "react";
-import { useAppDispatch } from "../store/hooks.ts";
-// import { ChatsMock } from "../Interfaces/IChat.ts";
-// import { setChats } from "../store/slices/chatsSlice.ts";
 import ChatInput from "./ChatInput.tsx";
 import Chats from "./Chats.tsx";
 import { FaBeer } from "react-icons/fa";
 import useAI from "../hooks/useAI.ts";
+import { useAppDispatch } from "../hooks/useAppDispatch.ts";
 
 const ChatBot = () => {
   useAI();

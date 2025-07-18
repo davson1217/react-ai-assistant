@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 import type { IGenAiResponse } from "../Interfaces/IGenAiResponse.ts";
-import { useAppDispatch } from "../store/hooks.ts";
-import { addPrompt, updatePromptRetry } from "../store/slices/chatsSlice.ts";
+import {
+  addPrompt,
+  updateAiBusy,
+  updatePromptRetry,
+} from "../store/slices/chatsSlice.ts";
+import { useAppDispatch } from "./useAppDispatch.ts";
 
 export interface IClientMethods {
   /**
@@ -45,11 +49,14 @@ const useAI = () => {
     http
       .post("/prompt", { prompt })
       .then((res: AxiosResponse<IGenAiResponse>) => {
-        const { created, message } = res.data;
+        dispatch(updateAiBusy(false));
+        return { created: res.data.created, message: res.data.message };
+      })
+      .then((data) => {
         dispatch(
           addPrompt({
-            timestamp: created,
-            prompt: message,
+            timestamp: data.created,
+            prompt: data.message,
             isUserPrompt: false,
           })
         );

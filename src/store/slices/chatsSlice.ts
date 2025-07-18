@@ -4,10 +4,12 @@ import type { PromptRetry } from "../../Interfaces/PayloadActions.ts";
 
 export interface IChatSlice {
   messages: IChat[];
+  isAiBusy: boolean;
 }
 
 const initialState: IChatSlice = {
   messages: [],
+  isAiBusy: false,
 };
 
 export const chatsSlice = createSlice({
@@ -19,23 +21,29 @@ export const chatsSlice = createSlice({
     },
 
     addPrompt: (state, action: PayloadAction<IChat>) => {
-      const isAIPrompt = !action.payload.isUserPrompt;
-
       let chats = [...state.messages];
 
-      const shouldClearRetries =
-        isAIPrompt && chats.some((chat) => chat.shouldRetry);
+      if (action.payload.isUserPrompt) {
+        state.isAiBusy = true;
+      } else {
+        // try to remove retry element
+        const shouldClearRetries = chats.some((chat) => chat.shouldRetry);
 
-      if (shouldClearRetries) {
-        chats = chats.map((chat) => {
-          if (chat.shouldRetry) {
-            chat.shouldRetry = false;
-          }
-          return chat;
-        });
+        if (shouldClearRetries) {
+          chats = chats.map((chat) => {
+            if (chat.shouldRetry) {
+              chat.shouldRetry = false;
+            }
+            return chat;
+          });
+        }
       }
 
       state.messages = [...chats, action.payload];
+    },
+
+    updateAiBusy: (state, action: PayloadAction<boolean>) => {
+      state.isAiBusy = action.payload;
     },
 
     updatePromptRetry: (state, action: PayloadAction<PromptRetry>) => {
@@ -50,5 +58,6 @@ export const chatsSlice = createSlice({
   },
 });
 
-export const { setChats, addPrompt, updatePromptRetry } = chatsSlice.actions;
+export const { setChats, addPrompt, updatePromptRetry, updateAiBusy } =
+  chatsSlice.actions;
 export default chatsSlice.reducer;
