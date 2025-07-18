@@ -22,4 +22,18 @@
       color: whitesmoke;
     }
   }
+
+  .retry-prompt {
+    display: flex;
+    justify-content: right;
+    color: red;
+    font-size: 13px;
+
+    span {
+      cursor: pointer;
+      &:hover {
+        color: rgba(182, 84, 13, 0.54);
+      }
+    }
+  }
 }

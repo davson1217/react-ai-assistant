@@ -1,0 +1,14 @@
+@use "./generics/variables" as *;
+
+.empty-chat {
+  height: $bot_chats-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    display: block;
+    height: 50%;
+    opacity: .9;
+  }
+}

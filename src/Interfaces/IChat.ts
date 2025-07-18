@@ -2,6 +2,7 @@ export interface IChat {
   timestamp: number;
   prompt: string;
   isUserPrompt: boolean;
+  shouldRetry?: boolean;
 }
 
 export const ChatsMock: IChat[] = [
@@ -9,13 +10,15 @@ export const ChatsMock: IChat[] = [
     timestamp: 1,
     prompt: "Welcome to Danske bank. How can I help you today?",
     isUserPrompt: false,
+    shouldRetry: false,
   },
   {
     timestamp: 2,
     prompt: "Lorem ipsum dolor sit amet.",
     isUserPrompt: true,
+    shouldRetry: true,
   },
-  {
+  /*{
     timestamp: 3,
     prompt:
       "Lorem ipsum is a popular template filler in the dev world. Do you want me to share more information?",
@@ -85,5 +88,5 @@ export const ChatsMock: IChat[] = [
     timestamp: 16,
     prompt: "Welcome to Danske bank. How can I help you today???",
     isUserPrompt: true,
-  },
+  },*/
 ];

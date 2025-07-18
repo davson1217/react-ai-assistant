@@ -29,6 +29,10 @@
     cursor: pointer;
     font-size: 23px;
 
+    &.disabled {
+      color: grey;
+      opacity: 0.5;
+    }
     &:hover {
       color: $secondary-color;
     }
