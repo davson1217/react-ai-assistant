@@ -3,14 +3,22 @@ import RetryPrompt from "./components/RetryPrompt.tsx";
 import Prompt from "./components/Prompt.tsx";
 import EmptyChat from "./components/EmptyChat.tsx";
 import { useAppSelector } from "../hooks/useAppSelector.ts";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 
 const Chats = () => {
   const messages = useAppSelector((state) => state.chats.messages);
   const isAiBusy = useAppSelector((state) => state.chats.isAiBusy);
+  const chatListRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = chatListRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [messages]);
 
   return (
-    <div className="chat-list">
+    <div className="chat-list" ref={chatListRef}>
       {!messages.length && <EmptyChat />}
 
       {messages.map((message) => (
