@@ -11,7 +11,7 @@ const Avatar = ({ isUser, timestamp }: AvatarProps) => {
     <div className={`ai-prompt-avatar ${isUser ? "" : "is_bot"}`}>
       {isUser && <img src={userLogo} alt="avatar" height={40} width={40} />}
       <div className="apa_info">
-        <div className="apa_info_name">{isUser ? "You" : "Jack"}</div>
+        <div className="apa_info_name">{isUser ? "You" : "Pijus"}</div>
         <div className="apa_info_timestamp">
           {timestamp ? new Date(timestamp).toLocaleDateString() : <></>}
         </div>

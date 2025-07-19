@@ -7,7 +7,6 @@ import {
   updatePromptRetry,
 } from "../store/slices/chatsSlice.ts";
 import { useAppDispatch } from "./useAppDispatch.ts";
-
 export interface IClientMethods {
   /**
    * Makes http request to the AI server, sending along user prompt
@@ -18,6 +17,9 @@ export interface IClientMethods {
   sendPrompt: (prompt: string, isRetry?: boolean) => void;
   getHistory: () => void;
 }
+
+// A one-time ID per chat session
+const sessionId = Math.random().toString(36).slice(2);
 
 const useAI = () => {
   const [isBusy, setIsBusy] = useState(false);
@@ -40,6 +42,7 @@ const useAI = () => {
           timestamp: promptTime,
           isUserPrompt: true,
           prompt,
+          sessionId,
         })
       );
     }
@@ -58,6 +61,7 @@ const useAI = () => {
             timestamp: data.created,
             prompt: data.message,
             isUserPrompt: false,
+            sessionId,
           })
         );
       })
@@ -68,6 +72,7 @@ const useAI = () => {
             timestamp: promptTime,
           })
         );
+        dispatch(updateAiBusy(false));
       })
       .finally(() => {
         setIsBusy(false);

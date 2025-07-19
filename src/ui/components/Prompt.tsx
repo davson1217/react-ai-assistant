@@ -1,5 +1,6 @@
 import type { IChat } from "../../Interfaces/IChat.ts";
 import Avatar from "./Avatar.tsx";
+import ReactMarkdown from "react-markdown";
 
 const Prompt = (props: IChat) => {
   const bubbleClasses = [
@@ -12,7 +13,7 @@ const Prompt = (props: IChat) => {
     <div className="prompt-container">
       <Avatar isUser={props.isUserPrompt} timestamp={props.timestamp} />
       <div className={bubbleClasses} key={props.timestamp}>
-        {props.prompt}
+        <ReactMarkdown>{props.prompt}</ReactMarkdown>
       </div>
     </div>
   );

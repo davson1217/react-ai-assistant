@@ -1,7 +1,10 @@
+export const CHATS_KEY = "chats";
+
 export interface IChat {
   timestamp: number;
   prompt: string;
   isUserPrompt: boolean;
+  sessionId: string;
   shouldRetry?: boolean;
 }
 
@@ -11,12 +14,14 @@ export const ChatsMock: IChat[] = [
     prompt: "Welcome to Danske bank. How can I help you today?",
     isUserPrompt: false,
     shouldRetry: false,
+    sessionId: "wyeibqdk",
   },
   {
     timestamp: 2,
     prompt: "Lorem ipsum dolor sit amet.",
     isUserPrompt: true,
     shouldRetry: true,
+    sessionId: "whfeibdkjnlscoip",
   },
   /*{
     timestamp: 3,

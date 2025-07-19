@@ -1,9 +1,13 @@
 @use "variables" as variables;
 
-@mixin flex-center {
+@mixin flex-center($alignMiddle: false) {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 90%;
+
+  @if $alignMiddle {
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @mixin reset-flex {
@@ -14,4 +18,17 @@
 
 @mixin mobile-screen() {
   @media (max-width: variables.$breakpoint-sm) {@content}
+}
+
+@mixin main-dimension() {
+  height: variables.$bot_chats-height;
+  overflow: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+@mixin position-lower($top) {
+  position: relative;
+  top: $top;
 }

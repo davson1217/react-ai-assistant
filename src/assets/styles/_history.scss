@@ -1,0 +1,70 @@
+@use "./generics/mixins" as *;
+@use "./generics/variables" as *;
+
+.chat-history {
+  @include main-dimension();
+  font-family: Serif, serif;
+
+  .ch-flex_header {
+    display: flex;
+    .ch-title {
+      width: 80%;
+    }
+    .ch-clear {
+      width: 20%;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+      @include position-lower(22px);
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+
+  .chl-container {
+    display: flex;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $secondary-color;
+      border-radius: 10px;
+
+      .chl-continue {
+        display: block;
+      }
+    }
+
+    .chl-session {
+      min-width: 80%;
+      padding: 3px 10px;
+      .chls_count {
+        font-size: 12px;
+      }
+      .first_message {
+        font-size: 19px;
+      }
+
+    }
+
+    .chl-continue {
+      display: none;
+      min-width: 10%;
+      @include position-lower(15px);
+    }
+  }
+
+  .empty-ch-list {
+    @include flex-center(true);
+    div {
+      text-align: center;
+      p:last-child {
+        text-decoration: underline;
+        color: blue;
+        cursor: pointer;
+      }
+    }
+  }
+}

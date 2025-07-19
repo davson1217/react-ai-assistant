@@ -1,33 +1,26 @@
 import "../assets/styles/_chat_bot.scss";
-import { useEffect } from "react";
 import ChatInput from "./ChatInput.tsx";
 import Chats from "./Chats.tsx";
-import { FaBeer } from "react-icons/fa";
-import useAI from "../hooks/useAI.ts";
-import { useAppDispatch } from "../hooks/useAppDispatch.ts";
+import Header from "./Header.tsx";
+import { useAppSelector } from "../hooks/useAppSelector.ts";
+import { VIEW } from "../enums/View.ts";
+import History from "./History.tsx";
 
 const ChatBot = () => {
-  useAI();
-  const dispatch = useAppDispatch();
-  // const useChats
-
-  useEffect(() => {
-    // dispatch(setChats(ChatsMock));
-  }, [dispatch]);
+  const activeView = useAppSelector((state) => state.view.activeView);
+  const chatHistoryIsActive = activeView === VIEW.HISTORY;
 
   return (
     <div className="bot">
       <header className="chatbot-header">
-        <div className="header-title">Chatbot</div>
-        <div className="header-action">
-          <FaBeer />
-        </div>
+        <Header />
       </header>
       <main className="chatbot-messages">
-        <Chats />
+        {chatHistoryIsActive && <History />}
+        {!chatHistoryIsActive && <Chats />}
       </main>
       <section className="chatbot-actions">
-        <ChatInput />
+        {!chatHistoryIsActive && <ChatInput />}
       </section>
     </div>
   );

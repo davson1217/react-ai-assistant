@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { IChat } from "../../Interfaces/IChat.ts";
+import { CHATS_KEY, type IChat } from "../../Interfaces/IChat.ts";
 import type { PromptRetry } from "../../Interfaces/PayloadActions.ts";
+import { get, set } from "lockr";
 
 export interface IChatSlice {
   messages: IChat[];
@@ -26,7 +27,7 @@ export const chatsSlice = createSlice({
       if (action.payload.isUserPrompt) {
         state.isAiBusy = true;
       } else {
-        // try to remove retry element
+        // try to remove retry status on prompts
         const shouldClearRetries = chats.some((chat) => chat.shouldRetry);
 
         if (shouldClearRetries) {
@@ -39,7 +40,10 @@ export const chatsSlice = createSlice({
         }
       }
 
-      state.messages = [...chats, action.payload];
+      const newChatList = [...chats, action.payload];
+
+      updateLocalStorage(newChatList);
+      state.messages = newChatList;
     },
 
     updateAiBusy: (state, action: PayloadAction<boolean>) => {
@@ -47,16 +51,36 @@ export const chatsSlice = createSlice({
     },
 
     updatePromptRetry: (state, action: PayloadAction<PromptRetry>) => {
-      state.messages = [...state.messages].map((chat) => {
+      const chats = [...state.messages];
+
+      const updatedChats = chats.map((chat) => {
         if (chat.timestamp === action.payload.timestamp) {
           chat.shouldRetry = true;
         }
 
         return chat;
       });
+
+      updateLocalStorage(updatedChats);
+      state.messages = updatedChats;
     },
   },
 });
+
+const updateLocalStorage = (chatList: IChat[]) => {
+  const sessionId = chatList[0].sessionId;
+  const lockrChats = get(CHATS_KEY);
+  if (lockrChats) {
+    const lockrUpdate = { ...lockrChats };
+    lockrUpdate[sessionId] = chatList;
+
+    set(CHATS_KEY, lockrUpdate);
+  } else {
+    const lockrUpdate: Record<string, IChat[]> = { [sessionId]: chatList };
+
+    set(CHATS_KEY, lockrUpdate);
+  }
+};
 
 export const { setChats, addPrompt, updatePromptRetry, updateAiBusy } =
   chatsSlice.actions;

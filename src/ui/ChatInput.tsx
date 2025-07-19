@@ -1,13 +1,21 @@
 import "../assets/styles/_chat_input.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaArrowCircleUp } from "react-icons/fa";
 import useAI from "../hooks/useAI.ts";
+import { useAppSelector } from "../hooks/useAppSelector.ts";
+import { VIEW } from "../enums/View.ts";
 
 export default function ChatInput() {
   const txRef = useRef<HTMLTextAreaElement>(null);
   const [inputValue, setInputValue] = useState<string>("");
   const [isAgentBusy, agent] = useAI();
+  const activeView = useAppSelector((state) => state.view.activeView);
 
+  useEffect(() => {
+    if (activeView === VIEW.CHAT) {
+      txRef.current?.focus();
+    }
+  }, [activeView]);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const el = txRef.current;
 

@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ChatsSlice from "./slices/chatsSlice.ts";
+import ViewSlice from "./slices/viewSlice.ts";
 
 export const store = configureStore({
   reducer: {
     chats: ChatsSlice,
+    view: ViewSlice,
   },
 });
 
