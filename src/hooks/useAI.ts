@@ -24,9 +24,11 @@ const sessionId = Math.random().toString(36).slice(2);
 const useAI = () => {
   const [isBusy, setIsBusy] = useState(false);
   const dispatch = useAppDispatch();
+  const backend = import.meta.env.VITE_BACKEND_URL;
 
+  console.log(backend);
   const http: AxiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:5000",
+    baseURL: backend,
     timeout: 36000,
     headers: {
       "Content-Type": "application/json",
