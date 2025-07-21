@@ -21,8 +21,8 @@ const Chats = () => {
     <div className="chat-list" ref={chatListRef}>
       {!messages.length && <EmptyChat />}
 
-      {messages.map((message) => (
-        <Fragment key={message.timestamp}>
+      {messages.map((message, index) => (
+        <Fragment key={index}>
           <Prompt {...message} />
           {message.shouldRetry && <RetryPrompt {...message} />}
         </Fragment>

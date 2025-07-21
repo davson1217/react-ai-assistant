@@ -56,14 +56,18 @@ const useAI = () => {
         return { created: res.data.created, message: res.data.message };
       })
       .then((data) => {
-        dispatch(
-          addPrompt({
-            timestamp: data.created,
-            prompt: data.message,
-            isUserPrompt: false,
-            sessionId,
-          })
-        );
+        if (data.created && data.message) {
+          dispatch(
+            addPrompt({
+              timestamp: data.created,
+              prompt: data.message,
+              isUserPrompt: false,
+              sessionId,
+            })
+          );
+        } else {
+          throw new Error("Something went wrong");
+        }
       })
       .catch((err) => {
         console.log(err);
